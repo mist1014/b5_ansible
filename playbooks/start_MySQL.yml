@@ -1,0 +1,9 @@
+---
+- name: start MySQL
+  hosts: localhost
+  become: yes
+
+  tasks:
+  - name: Start
+    service: name=mysql state=started enabled=yes
+
