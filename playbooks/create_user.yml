@@ -1,0 +1,21 @@
+---
+
+- name: create user
+  hosts: test2
+  become: yes
+
+  tasks:
+
+  - name: create user
+    user:
+      name: user1
+  
+  - name: create .ssh dir
+    file:
+      path: /home/user1/.ssh
+      state: directory
+ 
+  - name: copy ssh key
+    copy:
+      src: ~/ansible/source/ssh_user1.pub
+      dest: /home/user1/.ssh/ssh_user1.pub
