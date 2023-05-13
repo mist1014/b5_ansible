@@ -1,0 +1,16 @@
+---
+# tasks file for ftp
+
+- name: install vsftpd
+  apt: 
+    update_cache: yes
+    name: vsftpd
+    state: latest
+
+- name: start vsftpd
+  service:
+    name: vsftpd
+    state: started
+    enabled: yes
+
+

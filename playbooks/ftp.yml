@@ -1,0 +1,8 @@
+---
+
+- name: ftp role enforce
+  hosts: localhost
+  become: yes
+
+  roles:
+    - ftp
