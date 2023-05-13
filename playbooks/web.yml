@@ -1,0 +1,8 @@
+---
+
+- name: nginx+php-fpm
+  hosts: localhost
+  become: yes
+  
+  roles:
+  - web

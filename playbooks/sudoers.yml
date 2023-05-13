@@ -1,0 +1,32 @@
+---
+
+- name: sudoers
+  hosts: localhost
+  become: yes
+
+  vars:
+    users:
+    - name: user_1
+    - name: user_2
+
+  tasks:
+
+  - name: create group
+    group:
+      name: super_users
+      state: present
+
+  - name: create users
+    user:
+      name: "{{ item.name }}"
+      groups: super_users
+      shell: /bin/bash
+    with_items: "{{ users }}"
+
+  - name: Validate the sudoers file before saving
+    lineinfile:
+      path: /etc/sudoers
+      state: present
+      line: '%super_users ALL=(ALL) NOPASSWD:ALL'
+      validate: /usr/sbin/visudo -cf %s
+

@@ -1,0 +1,43 @@
+---
+# tasks file for web
+- name: install nginx+php+php-fpm
+  apt:
+    update_cache: yes
+    pkg: 
+    - nginx
+    - php-fpm
+    state: latest 
+
+- name: create group
+  group:
+    name: www-data
+
+- name: create user
+  user:
+    name: www-data
+    group: www-data
+
+- name: create site location
+  file:
+    path: "{{ root }}" 
+    state: directory
+
+- name: copy site config
+  copy:
+    src: "{{ source_dir }}/default.conf"
+    dest: "{{ conf_dest }}" 
+  notify: restart_nginx
+
+- name: copy site content
+  copy: 
+    src: "{{ source_dir }}/index.php"
+    dest: "{{ root }}/index.php"
+  notify: restart_nginx
+
+- name: place actual root into config
+  lineinfile:
+    path: "{{ conf_dest }}"
+    regexp: "root /var/www"
+    line: "root {{ root }};"
+  notify: restart_nginx
+

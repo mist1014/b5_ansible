@@ -1,0 +1,5 @@
+---
+# vars file for web
+root: /opt/nginx/ansible
+source_dir: ~/ansible/source
+conf_dest: /etc/nginx/sites-available/default

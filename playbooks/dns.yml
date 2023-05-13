@@ -1,0 +1,7 @@
+---
+- name: install dnsmasq
+  hosts: test3
+  become: yes
+
+  roles:
+    - DNS

@@ -1,0 +1,27 @@
+---
+# tasks file for DNS
+- name: replace resolv.conf
+  copy:
+    src: ~/ansible/source/resolv.conf
+    dest: /etc/resolv.conf
+    mode: 0644
+
+- name: stop systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+
+- name: install dnsmasq
+  apt:
+    update_cache: yes
+    name: dnsmasq
+    state: latest
+
+- name: configure firewall
+  iptables:
+    action: insert
+    chain: INPUT
+    protocol: udp
+    destination_port: 53
+    jump: ACCEPT
