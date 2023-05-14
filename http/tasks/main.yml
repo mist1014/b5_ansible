@@ -1,0 +1,34 @@
+---
+# tasks file for http
+
+- name: install nginx
+  apt:
+    name: nginx
+    state: latest
+
+- name: set site config
+  template:
+    src: "{{ http_conf_src }}"
+    dest: "{{ http_conf_dst }}"
+  notify: restart nginx
+
+- name: copy info.php
+  copy:
+    src: "{{ info_php_src }}"
+    dest: "{{ info_php_dst }}"
+  notify: restart nginx
+
+- name: copy index.html
+  copy:
+    src: "{{ index_src }}"
+    dest: "{{ index_dst }}"
+  notify: restart nginx
+
+- name: open php port
+  iptables:
+    action: insert
+    chain: INPUT
+    protocol: tcp
+    source_port: 9000
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT

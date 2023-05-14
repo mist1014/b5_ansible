@@ -1,0 +1,4 @@
+---
+# vars file for users
+users:
+- {name: "user1", public_key: "~/ansible/source/ssh_user1.pub"}

@@ -1,0 +1,12 @@
+---
+root_location: /var/www
+php_fpm_server_ip: 192.168.144.134
+php_port: 9000
+info_php_src: ~/ansible/source/info.php
+info_php_dst: /var/www/info.php
+index_src: ~/ansible/source/index.html
+index_dst: /var/www/index.html
+php_conf_src: ~/ansible/source/www.conf
+php_conf_dst: /etc/php/8.1/fpm/pool.d/www.conf
+http_conf_src: ~/ansible/source/nginx_site.conf
+http_conf_dst: /etc/nginx/sites-available/default

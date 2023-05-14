@@ -1,0 +1,21 @@
+---
+# tasks file for users
+- name: create user
+  user:
+    name: "{{ item.name }}"
+    shell: /bin/bash
+  with_items: "{{ users }}"
+
+- name: create .ssh dir
+  file:
+    path: "/home/{{ item.name }}/.ssh"
+    state: directory
+  with_items: "{{ users }}"
+
+- name: copy id
+  ansible.posix.authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "{{ lookup('file', '{{ item.public_key }}') }}"
+  with_items: "{{ users }}"
+  

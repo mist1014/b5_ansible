@@ -1,3 +1,12 @@
 [test_group]
 test2 ansible_host=192.168.144.130 ansible_user=mist ansible_ssh_private_key_file=/home/mist/.ssh/id_rsa
+
+[http]
 test3 ansible_host=192.168.144.133 ansible_user=mist ansible_ssh_private_key_file=/home/mist/.ssh/id_rsa
+
+[php]
+test4 ansible_host=192.168.144.134 ansible_user=mist ansible_ssh_private_key_file=/home/mist/.ssh/id_rsa
+
+[web:children]
+http
+php
